@@ -46,10 +46,12 @@ function App() {
   };
   // console.log(pokemonData);
   
+
   /**
    * 次へボタンを押した時の処理
    */
   const handleNextPage = async () => {
+    returnTop()
     setLoading(true);
 
     let data = await getAllPokemon(nextURL);
@@ -58,6 +60,8 @@ function App() {
     setNextURL(data.next)
     setPrevURL(data.previous)
     setLoading(false);
+
+    // console.log(data)
   }
 
   /**
@@ -65,6 +69,8 @@ function App() {
    */
   const handlePrevPage = async () => {
     if(!prevURL) return;
+
+    returnTop()
     setLoading(true);
 
     let data = await getAllPokemon(prevURL);
@@ -75,6 +81,13 @@ function App() {
     setLoading(false);
   }
 
+  const returnTop = () => {
+    window.scrollTo({
+      top: 0,
+      // behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <Navbar />
@@ -83,15 +96,20 @@ function App() {
           <h1>Loading...</h1>
         ) : (
           <>
-          <div className="pokemonCardContainer">
-            {pokemonData.map((pokemon, i) => {
-              return <Card key={i} pokemon={pokemon} />
-            })}
-          </div>
-          <div className="btns">
-            <button onClick={handlePrevPage}>前へ</button>
-            <button onClick={handleNextPage}>次へ</button>
-          </div>
+            <div className="introduction">
+              <p className="introductionText">
+                <a href="https://pokeapi.co/" target="_blank">PokeApi</a>から20件ずつポケモン情報を取得し一覧表示しています。
+              </p>
+            </div>
+            <div className="pokemonCardContainer">
+              {pokemonData.map((pokemon, i) => {
+                return <Card key={i} pokemon={pokemon} />
+              })}
+            </div>
+            <div className="btns">
+              <button onClick={handlePrevPage} className={(prevURL) ? "": 'isDisable'}>前へ</button>
+              <button onClick={handleNextPage} className={(nextURL) ? "": 'isDisable'}>次へ</button>
+            </div>
           </>
         )}
       </div>

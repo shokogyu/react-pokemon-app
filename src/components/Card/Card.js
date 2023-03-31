@@ -4,6 +4,7 @@ import './Card.css'
 const Card = ({pokemon}) => {
   return (
     <div className='card'>
+        <div className="cardNum">{pokemon.id}</div>
         <div className='cardImg'>
             <img src={ pokemon.sprites.front_default } />
         </div>
