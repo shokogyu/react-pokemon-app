@@ -1,18 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
   width: 100%;
   height: 100vh;
+  padding-inline: 20px;
 }
 
 .pokemonCardContainer {
   width: 1200px;
   max-width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 45px;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   place-items: center;
   margin: 0 auto 60px;
+}
+
+@media screen and (max-width: 640px) {
+  .pokemonCardContainer {
+    /* grid-template-columns: repeat(2, 1fr); */
+  }
 }
 
 .btns {
